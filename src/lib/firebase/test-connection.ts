@@ -3,13 +3,13 @@ import { getAuth } from 'firebase/auth';
 import { initializeApp } from 'firebase/app';
 
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyCZ0tNDaSm2sZ2CTex2ICif-CPlCR1ZFYw",
-  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "accountbook-791ce.firebaseapp.com",
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "accountbook-791ce",
-  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "accountbook-791ce.firebasestorage.app",
-  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "666529519931",
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:666529519931:web:9af5f6e5696a1dbdf13f1e",
-  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "G-32Q90RCRS1"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyB-95bJ9Kil5YPoQdzGM4hJBZ-KHreijQU",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "accountbook-l9ea9.firebaseapp.com",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "accountbook-l9ea9",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "accountbook-l9ea9.firebasestorage.app",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "85242748556",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:85242748556:web:9875307d5d79fb13b2e5a9",
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID || "G-F8K3SQF04M"
 };
 
 export async function testFirebaseConnection() {
