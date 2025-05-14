@@ -58,29 +58,12 @@ export function LoginForm() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setIsLoading(true);
     try {
-       // Check for initial default login (special case)
-       // This requires careful handling. A better approach is to pre-create this user
-       // in Firebase or guide the first user through a setup process.
-       // Simulating the check here for demonstration:
-       if (values.email === "yousuf@example.com" && values.password === INITIAL_PASSWORD) {
-          // Note: Firebase doesn't have usernames, using a predefined email for the initial user
-          // You would need to create this user in your Firebase console first.
-          // Replace "yousuf@example.com" with the actual email for the 'Yousuf' user.
-          await signIn(values.email, values.password);
-          toast({
-            title: "Login Successful",
-            description: "Welcome back, Yousuf!",
-          });
-          router.push("/dashboard"); // Redirect after successful login
-       } else {
-         // Standard login for other users or if the initial user changed credentials
-         await signIn(values.email, values.password);
-         toast({
-           title: "Login Successful",
-           description: "Welcome back!",
-         });
-         router.push("/dashboard"); // Redirect after successful login
-       }
+      await signIn(values.email, values.password);
+      toast({
+        title: "Login Successful",
+        description: "Welcome back!",
+      });
+      router.push("/dashboard"); // Redirect after successful login
     } catch (error: any) {
       console.error("Login failed:", error);
       // Provide more specific error messages if possible
