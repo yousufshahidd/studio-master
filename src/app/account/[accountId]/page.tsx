@@ -1,4 +1,3 @@
-
 // src/app/account/[accountId]/page.tsx
 "use client";
 
@@ -60,6 +59,7 @@ import { cn } from "@/lib/utils";
 import { generatePdf, downloadPdf } from "@/services/pdf-generator"; // generatePdf is now for HTML DocumentContent
 import type { Account, Transaction, TransactionWithBalance } from "@/types";
 import type { DocumentContent } from "@/services/pdf-generator"; // Import DocumentContent
+import { isValidAmount, isValidTransaction, isTransactionUnchanged } from "@/lib/validation";
 import {
     mockDb,
     calculateRunningBalance,
@@ -69,7 +69,6 @@ import {
     slipNumberExists
 } from "@/lib/mock-data";
 import { format } from "date-fns";
-
 
 // Function to prepare HTML for download (previously generateAccountPdf)
 async function prepareAccountHtmlForDownload(accountName: string, transactions: TransactionWithBalance[]): Promise<DocumentContent> {
@@ -148,8 +147,7 @@ async function prepareAccountHtmlForDownload(accountName: string, transactions: 
     console.error("Error preparing HTML document via service:", error);
     throw new Error("Failed to prepare HTML document.");
   }
-}
-
+};
 
 export default function AccountDetailPage() {
   const { accountId } = useParams<{ accountId: string }>();
@@ -1075,16 +1073,13 @@ export default function AccountDetailPage() {
               <Button
                  type="button"
                  onClick={handleAddTransaction}
-                 disabled={
-                     isSavingTransaction ||
-                     !transactionDate ||
-                     !transactionDesc.trim() ||
-                     !transactionSlip.trim() ||
-                     !transactionAmount ||
-                     !linkedAccountId ||
-                     isNaN(parseFloat(transactionAmount.toString())) ||
-                      parseFloat(transactionAmount.toString()) <= 0
-                 }
+                 disabled={isSavingTransaction || !isValidTransaction(
+                     transactionDate,
+                     transactionDesc,
+                     transactionSlip,
+                     transactionAmount,
+                     linkedAccountId
+                 )}
               >
                  {isSavingTransaction ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Save Transaction"}
               </Button>
@@ -1227,23 +1222,25 @@ export default function AccountDetailPage() {
                  type="button"
                  onClick={handleSaveEditedTransaction}
                   disabled={
-                      isSavingTransaction ||
-                      !transactionDate ||
-                      !transactionDesc.trim() ||
-                      !transactionSlip.trim() ||
-                      !transactionAmount ||
-                      !linkedAccountId ||
-                      isNaN(parseFloat(transactionAmount.toString())) ||
-                      parseFloat(transactionAmount.toString()) <= 0 ||
-                      ( editTarget &&
-                          transactionDate.toISOString().split('T')[0] === editTarget.date &&
-                          transactionDesc.trim() === editTarget.description &&
-                          transactionSlip.trim() === editTarget.slipNumber &&
-                          parseFloat(transactionAmount.toString()) === (editTarget.debit ?? editTarget.credit ?? 0) &&
-                          transactionType === (editTarget.debit ? "debit" : "credit") &&
-                          linkedAccountId === allAccounts.find(a=>a.name === editTarget?.code)?.id
+                      isSavingTransaction || 
+                      !isValidTransaction(
+                          transactionDate,
+                          transactionDesc,
+                          transactionSlip,
+                          transactionAmount,
+                          linkedAccountId
+                      ) ||
+                      isTransactionUnchanged(
+                          editTarget,
+                          transactionDate,
+                          transactionDesc,
+                          transactionSlip,
+                          transactionAmount,
+                          transactionType,
+                          linkedAccountId,
+                          allAccounts
                       )
-                 }
+                  }
                >
                  {isSavingTransaction ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Save Changes"}
               </Button>
@@ -1262,7 +1259,7 @@ export default function AccountDetailPage() {
            </AlertDialogHeader>
            <AlertDialogFooter>
              <AlertDialogCancel onClick={() => setDeleteTarget(null)}>Cancel</AlertDialogCancel>
-             <AlertDialogAction onClick={confirmFirstDelete} variant="destructive">Continue</AlertDialogAction>
+             <AlertDialogAction onClick={confirmFirstDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Continue</AlertDialogAction>
            </AlertDialogFooter>
          </AlertDialogContent>
        </AlertDialog>
