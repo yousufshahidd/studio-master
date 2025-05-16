@@ -1,11 +1,11 @@
-
 // src/app/dashboard/page.tsx
 "use client";
 
 import * as React from "react";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/lib/firebase/client";
-import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { PlusCircle, Edit, Trash2, Eye, LogOut, MoreVertical, Loader2, AlertCircle } from "lucide-react";
 import {
@@ -49,7 +49,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import ThemeToggle from "@/components/theme-toggle";
 import type { Account } from "@/types";
 import { mockDb, getNextAccountId, updateAccountBalance } from "@/lib/mock-data"; // Import mock data and helpers
-import { cn } from "@/lib/utils";
 
 export default function DashboardPage() {
   const { user, loading, signOut } = useAuth();
@@ -382,8 +381,8 @@ export default function DashboardPage() {
                                         <AlertDialogFooter>
                                         <AlertDialogCancel onClick={() => setAccountToDelete(null)}>Cancel</AlertDialogCancel>
                                         <AlertDialogAction
-                                            variant="destructive"
-                                            onClick={handleDeleteAccount} // Call the actual delete handler
+                                            className={cn("bg-destructive text-destructive-foreground hover:bg-destructive/90")}
+                                            onClick={handleDeleteAccount}
                                             >
                                             Yes, delete account
                                             </AlertDialogAction>

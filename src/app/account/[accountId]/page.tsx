@@ -1099,7 +1099,7 @@ export default function AccountDetailPage() {
            </AlertDialogHeader>
            <AlertDialogFooter>
              <AlertDialogCancel onClick={() => setEditTarget(null)}>Cancel</AlertDialogCancel>
-             <AlertDialogAction onClick={confirmEditIntent}>Continue to Edit Form</AlertDialogAction>
+             <AlertDialogAction className={cn("bg-primary text-primary-foreground hover:bg-primary/90")} onClick={confirmEditIntent}>Continue to Edit Form</AlertDialogAction>
            </AlertDialogFooter>
          </AlertDialogContent>
        </AlertDialog>
@@ -1259,7 +1259,7 @@ export default function AccountDetailPage() {
            </AlertDialogHeader>
            <AlertDialogFooter>
              <AlertDialogCancel onClick={() => setDeleteTarget(null)}>Cancel</AlertDialogCancel>
-             <AlertDialogAction onClick={confirmFirstDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">Continue</AlertDialogAction>
+             <AlertDialogAction className={cn("bg-destructive text-destructive-foreground hover:bg-destructive/90")} onClick={confirmFirstDelete}>Continue</AlertDialogAction>
            </AlertDialogFooter>
          </AlertDialogContent>
        </AlertDialog>
