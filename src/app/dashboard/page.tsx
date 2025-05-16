@@ -381,9 +381,9 @@ export default function DashboardPage() {
                                         <AlertDialogFooter>
                                         <AlertDialogCancel onClick={() => setAccountToDelete(null)}>Cancel</AlertDialogCancel>
                                         <AlertDialogAction
-                                            className={cn("bg-destructive text-destructive-foreground hover:bg-destructive/90")}
+                                            className="bg-destructive text-destructive-foreground hover:bg-destructive/90"
                                             onClick={handleDeleteAccount}
-                                            >
+                                        >
                                             Yes, delete account
                                             </AlertDialogAction>
                                         </AlertDialogFooter>
