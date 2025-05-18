@@ -1274,7 +1274,7 @@ export default function AccountDetailPage() {
            </AlertDialogHeader>
            <AlertDialogFooter>
              <AlertDialogCancel onClick={() => setDeleteTarget(null)}>Cancel</AlertDialogCancel>
-              <Button onClick={confirmSecondDelete} variant="destructive" disabled={isLoading}>
+              <Button onClick={confirmSecondDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90" disabled={isLoading}>
                  {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : "Yes, Delete Transaction"}
               </Button>
            </AlertDialogFooter>
